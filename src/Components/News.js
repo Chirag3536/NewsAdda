@@ -4,6 +4,7 @@ import Loading from "./Loading";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 export default class News extends Component {
+
   capitalizef = (word) => {
     return word.charAt(0).toUpperCase() + word.slice(1);
   };
@@ -23,7 +24,6 @@ export default class News extends Component {
     this.props.setProgress(10);
     this.setState({page: this.state.page + 1})
     let url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
-    // let url = "https://newsapi.org/v2/everything?q=cricket&category=${this.props.category}&apiKey=04644a98900341948294aa2f6a39d913&page=1&pageSize=21";
     this.setState({ loading: true });
     let data = await fetch(url);
     let response = await data.json();
@@ -44,7 +44,6 @@ export default class News extends Component {
   fetchMoreData = async()=>{
     this.setState({page: this.state.page + 1})
     let url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
-    // let url = "https://newsapi.org/v2/everything?q=cricket&category=${this.props.category}&apiKey=04644a98900341948294aa2f6a39d913&page=1&pageSize=21";
     this.setState({ loading: true });
     let data = await fetch(url);
     let response = await data.json();
@@ -56,43 +55,13 @@ export default class News extends Component {
     });
   }
 
-  // onPrevClick = async () => {
-  //   let url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apiKey=04644a98900341948294aa2f6a39d913&page=${this.state.page-1}&pageSize=${this.props.pageSize}`;
-  //   // let url = "https://newsapi.org/v2/everything?q=cricket&category=${this.props.category}&apiKey=04644a98900341948294aa2f6a39d913&page=1&pageSize=21";
-  //   this.setState({ loading: true });
-  //   let data = await fetch(url);
-  //   let response = await data.json();
-  //   this.setState({
-  //     articles: response.articles,
-  //     totalPages: Math.ceil(response.totalResults / this.props.pageSize),
-  //     loading: false,
-  //     page: this.state.page - 1
-  //   });
-  // };
-
-  // onNextClick = async () => {
-
-  //   let url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apiKey=04644a98900341948294aa2f6a39d913&page=${this.state.page+1}&pageSize=${this.props.pageSize}`;
-  //   // let url = "https://newsapi.org/v2/everything?q=cricket&category=${this.props.category}&apiKey=04644a98900341948294aa2f6a39d913&page=1&pageSize=21";
-  //   this.setState({ loading: true });
-  //   let data = await fetch(url);
-  //   let response = await data.json();
-  //   this.setState({
-  //     articles: response.articles,
-  //     totalPages: Math.ceil(response.totalResults / this.props.pageSize),
-  //     loading: false,
-  //     page: this.state.page + 1
-  //   });
-  // };
-
   render() {
     return (
       <>
         <div className="container my-5">
           <h1 className="text-center" style={{ padding: "25px" }}>
-            Today's topNews On :- {this.capitalizef(this.props.category)}
+            Top News On :- {this.capitalizef(this.props.category)}
           </h1>
-          {/* {this.state.loading && <Loading />} */}
 
           <InfiniteScroll
             dataLength={this.state.articles.length}
@@ -124,25 +93,6 @@ export default class News extends Component {
             </div>
           </InfiniteScroll>
         </div>
-
-        {/* <div className="container d-flex justify-content-between">
-          <button
-            disabled={this.state.page <= 1}
-            type="button"
-            className="btn btn-dark"
-            onClick={this.onPrevClick}
-          >
-            &larr; Previous
-          </button>
-          <button
-            disabled={this.state.page >= this.state.totalPages}
-            type="button"
-            className="btn btn-dark"
-            onClick={this.onNextClick}
-          >
-            Next &rarr;
-          </button>
-        </div> */}
       </>
     );
   }

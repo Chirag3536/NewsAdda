@@ -3,13 +3,11 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import React, { Component } from 'react'
 import Navbar from './Components/Navbar';
 import News from './Components/News';
-import About from './Components/About';
 import LoadingBar from 'react-top-loading-bar'
 
 
 export default class App extends Component {
   pageSize = 6
-  // apiKey = "04644a98900341948294aa2f6a39d913"
   apiKey = process.env.REACT_APP_MY_API_KEY
 
   state = {
@@ -32,7 +30,6 @@ export default class App extends Component {
           <Navbar/>  
           <Routes>
             <Route exact path = "/" element = {<News setProgress = {this.setProgress} apiKey = {this.apiKey} key = "general" pageSize = {this.pageSize} category = "general"/>}/>
-            <Route exact path = "/about" element = {<About category="About"/>}/>
             <Route exact path = "/sports" element = {<News setProgress = {this.setProgress} apiKey = {this.apiKey} key = "sports" pageSize = {this.pageSize} category = "sports"/>}/>
             <Route exact path = "/business" element = {<News setProgress = {this.setProgress} apiKey = {this.apiKey} key = "business" pageSize = {this.pageSize} category = "business"/>}/>
             <Route exact path = "/entertainment" element = {<News setProgress = {this.setProgress} apiKey = {this.apiKey} key = "entertainment" pageSize = {this.pageSize} category = "entertainment"/>}/>
